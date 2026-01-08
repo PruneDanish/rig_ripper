@@ -1,7 +1,7 @@
 import pymel.all as pymel
 import maya.cmds as cmds
-selection = pymel.ls(selection = True)
 
+selection = pymel.ls(selection = True)
 
 def validate_selection(selection):
     """Validate that the selection contains only mesh faces.
@@ -59,14 +59,14 @@ def get_joint_hierarchy(geometry, root_request = False):
 
     # Build the joint hierarchy back to the root
     for j in influential_joints:
+        joint_hierarchy.append(j)
         joint_parent = pymel.listRelatives(j, parent=True)
+
         while joint_parent:
             if joint_parent not in joint_hierarchy:
                 joint_hierarchy.append(joint_parent)
             
             joint_parent = pymel.listRelatives(joint_parent, parent=True)
-
-
     
     if root_request == False:
         return joint_hierarchy
