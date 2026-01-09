@@ -1,3 +1,8 @@
+"""
+This script isolates the rig of a selected mesh by validating the selection,
+extracting the joint hierarchy influencing the mesh, and deleting all other geometry.
+"""
+
 import pymel.all as pymel
 import maya.cmds as cmds
 
@@ -28,8 +33,8 @@ def get_joint_hierarchy(geometry, root_request = False):
     Args:
         geometry (list): The list of geometry objects.
         
-        Returns:
-            list: A list of influential joints and their hierarchy.
+    Returns:
+        list: A list of influential joints and their hierarchy.
     """
     
     # Get the skin cluster from the geometry
@@ -115,8 +120,6 @@ def isolate_geometry(geometry):
     
     shells_for_delete = [mesh for mesh in all_mesh_transforms if mesh not in selection_shells]
     pymel.delete(shells_for_delete)
-    
-
 
 def isolate_joint_hierarchy(joint_hierarchy):
     """Isolate the joint hierarchy.
@@ -133,21 +136,18 @@ def isolate_joint_hierarchy(joint_hierarchy):
 
 
 def rip_rig(selection):
+    """Rip the rig using the selected geometry.
+
+    Args:
+        selection (list): The list of selected objects.
+    """
+
     valid, geometry = validate_selection(selection)
-    
+
     if valid and len(selection) == len(geometry):
         joint_hierarchy = get_joint_hierarchy(geometry)
         isolate_geometry(geometry)
         isolate_joint_hierarchy(joint_hierarchy)
-'''
-def hero_swap(selection):
-   valid, geometry = validate_selection(selection)
-    
-   if valid and len(selection == len(geometry):
-       hero_filepath = ""
-       pymel.importFile("D:/Users/Daniel/Documents/maya/FoxRigged.FBX")
-       
-       hero_file = pymel.importFile(hero_filepath)
-'''
+
 
 rip_rig(selection)
