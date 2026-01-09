@@ -1,5 +1,5 @@
 """
-This script isolates the rig of a selected mesh by validating the selection,
+This script isolates the rig of a selected set of faces by validating the selection,
 extracting the joint hierarchy influencing the mesh, and deleting all other geometry.
 """
 
